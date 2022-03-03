@@ -65,6 +65,7 @@ public:
         vector<int> maxXor(q,0);
         int ind=0;
         int n=nums.size();
+      //TC- O(q*32 + n*32)
         for(int i=0;i<q;i++){
           //fetching values from offline Queries
             int xi=offQ[i].second.first;
