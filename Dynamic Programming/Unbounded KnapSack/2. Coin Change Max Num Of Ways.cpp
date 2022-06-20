@@ -39,6 +39,25 @@ All the values of coins are unique.
 
 */
 
+
+//Recursive Code
+ int ways(int amount,int i,vector<int> &coins)
+    {
+        if(amount==0)
+            return 1;
+        else if(i<=0 )
+            return 0;
+        else if(coins[i-1]<=amount)
+            return ways(amount-coins[i-1],i,coins) +ways(amount,i-1,coins);
+        else return ways(amount,i-1,coins);
+    }
+    public:
+    int change(int amount, vector<int>& coins) {
+        return ways(amount,coins.size(),coins);//will give TLE needs to be memoized
+    }
+
+//Bottom-Up DP
+//one advantage in this is we can have prev 1D array to find the answer for next row. 
 int change(int amount, vector<int>& coins) {
         vector<vector<int>> t(coins.size()+1,vector<int> (amount+1,-1) );
         
