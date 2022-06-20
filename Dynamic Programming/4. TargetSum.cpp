@@ -31,6 +31,13 @@ Constraints:
 0 <= sum(nums[i]) <= 1000
 -1000 <= target <= 1000
 */
+/*
+Approach
+We'll be diving the array into two parts(one +ve and another -ve) and then subtract one from another to get the target.
+now S1-S2=target
+but S1+S2=totalSum
+so we can say S1=(target +totalSum)/2  --> if this is undivisible that means the target can't be achieved 
+*/
 int findTargetSumWays(vector<int>& nums, int target) {
           int sum;
         for(int x:nums)
