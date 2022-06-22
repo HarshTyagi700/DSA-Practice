@@ -35,11 +35,39 @@ Output: 2
 Constraints:
 
 1 <= coins.length <= 12
-1 <= coins[i] <= 231 - 1
+1 <= coins[i] <= 2^31 - 1
 0 <= amount <= 104
 */
+//Recursive Code with Memoization
+class Solution {
+private:
+    int minCoins(int amt,int i,vector<int>& coins,vector<vector<int>> &T)
+    {
+        if(amt==0)
+            return 0;
+        if(i<=0 and amt>0)
+            return INT_MAX-1;
+        if(i==1)
+        {
+            return (amt%coins[i-1]==0)?amt/coins[i-1]:INT_MAX-1;
+        }
+        if(T[i][amt]!=-1)
+            return T[i][amt];
+        if(coins[i-1]<=amt)
+            return T[i][amt]=min(minCoins(amt,i-1,coins,T),1+minCoins(amt-coins[i-1],i,coins,T));
+        return T[i][amt]=minCoins(amt,i-1,coins,T);
+    }
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size();
+        vector<vector<int>> T(n+1,vector<int> (amount+1,-1));
+        int ans= minCoins(amount,coins.size(),coins,T);
+            return ans==INT_MAX-1?-1:ans;
+    }
+};
 
 
+//Bottom-Up DP
 int coinChange(vector<int>& coins, int amount) {
         int T[coins.size()+1][amount+1];
         for(int i=0;i<=coins.size();i++)
