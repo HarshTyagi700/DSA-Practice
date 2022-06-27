@@ -66,3 +66,64 @@ public:
         return solve(arr,1,N-1);
     }
 };
+
+//Recursive Solution with Memoization
+//https://practice.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1/#
+class Solution{
+    private:
+    
+    int findMinOps(int arr[],int i,int j, vector<vector<int>> &T)
+    {
+        if(i>=j)
+        return 0;
+        int minAns=INT_MAX;
+        int tempAns;
+        if(T[i][j]!=-1)
+        return T[i][j];
+        for(int k=i;k<=j-1;k++)
+        {
+            int tempAns=findMinOps(arr,i,k,T)+arr[i-1]*arr[k]*arr[j]+
+                        findMinOps(arr,k+1,j,T);
+            minAns=min(tempAns,minAns);
+        }
+        return T[i][j]=minAns;
+        
+        
+    }
+public:
+    int matrixMultiplication(int N, int arr[])
+    {
+        vector<vector<int>> T(N+1,vector<int> (N+1,-1));
+        return findMinOps(arr,1,N-1,T);
+        
+    }
+};
+
+
+//Tabulation Method Bottom-Up DP
+int matrixMultiplication(vector<int> &arr, int N)
+{
+    // Write your code here.
+//     vector<vector<int>> dp(N,vector<int>(N,-1));
+    int dp[N][N];//we've to run only till N-1
+    for(int i=1;i<=N-1;i++)
+        dp[i][i]=0;//if there's only one matrix then ops =0
+   
+    for(int i=N-1;i>=1;i--)//do reverse of recursion there we were going from 1->N-1
+    {
+        for(int j=i+1;j<=N-1;j++)//here's a catch j can never be less than i so we'll start from i+1
+        {
+            int minAns=INT_MAX;
+           for(int k=i;k<=j-1;k++)//trying out all possible partitions from here
+        {
+            int tempAns=dp[i][k]+arr[i-1]*arr[k]*arr[j]+
+                        dp[k+1][j];//if we break at k then tempAns would be this
+            minAns=min(tempAns,minAns);//taking minAns till now
+        }
+            dp[i][j]=minAns;//this is the min ans that we can get for dp[i][j] 
+       
+        }
+    }
+     return dp[1][N-1];//return the answer at top-right.
+    
+}
