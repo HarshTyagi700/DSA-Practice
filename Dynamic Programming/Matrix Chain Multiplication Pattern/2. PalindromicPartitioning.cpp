@@ -84,3 +84,68 @@ public:
         return noOfPartitions(str,0,str.size()-1);
     }
 };
+
+//bottom-up dp (Tabulation)
+class Solution {
+private:
+    bool isPalindrome(string s,int i,int j)
+    { 
+        while(i<j)
+        {
+            if(s[i++]!=s[j--])
+                return false;
+        }
+        return true;
+    }
+
+    int solve(string s,int i,vector<int> &dp)
+    {
+        int n=s.length();
+        if(i==n)
+            return 0;
+        if(dp[i]!=-1)
+            return dp[i];
+
+        int tempAns,minCost=INT_MAX;
+        for(int k=i;k<n;k++)
+        {
+
+            if(isPalindrome(s,i,k))
+            {
+                tempAns=1+solve(s,k+1,dp);
+                minCost=min(minCost,tempAns);
+            }
+            
+        }
+        return dp[i]=minCost;
+    }
+public:
+    int minCut(string s) {
+        //I'll try to do front partition and check whether the 
+        //first partition is palindrome , if it is then only I'll 
+        // check for the left string i.e. calling function recursively
+       
+        int n=s.length();
+         if(isPalindrome(s,0,n-1))
+        return 0;
+        vector<int> dp(n+1,0);
+        for(int i=n-1;i>=0;i--)
+        {  
+            int tempAns,minCost=INT_MAX;
+           for(int k=i;k<n;k++)
+        {
+
+            if(isPalindrome(s,i,k))
+            {
+                tempAns=1+dp[k+1];
+                minCost=min(minCost,tempAns);
+            }
+           
+        } 
+                        
+        dp[i]=minCost;
+         
+        }
+        return dp[0]-1;
+    }
+};

@@ -95,3 +95,57 @@ Constraints:
         mp.clear();
        return noOfWays(S,0,S.size()-1,true);
     }
+
+//Memoization 
+#define ll long long int
+#define M 1000000007
+
+ll solve(string &exp,int i,int j,int res,vector<vector<vector<ll>>> &dp)
+{
+    if(i>j)
+        return 0;
+    if(i==j)
+    {
+        if(res==1)
+            return dp[i][j][res]=(exp[i]=='T'?1:0);
+        else return dp[i][j][res]=(exp[i]=='F'?1:0);        
+    }
+    
+    if(dp[i][j][res]!=-1)
+        return dp[i][j][res];
+    
+    ll ways=0;
+    for(int k=i+1;k<=j-1;k+=2)
+    {
+        ll LT=solve(exp,i,k-1,1,dp)%M;
+        ll RT=solve(exp,k+1,j,1,dp)%M;
+        ll LF=solve(exp,i,k-1,0,dp)%M;
+        ll RF=solve(exp,k+1,j,0,dp)%M;
+        switch(exp[k])
+        {
+            case '&':
+                {
+                    if(res)
+                       ways+=((RT*LT)%M);
+                    else ways+=((LF*RF)%M+(LT*RF)%M+(LF*RT)%M);
+                };break;
+                
+            case '^':{
+             if(res)
+                 ways+=((LT*RF)%M+(LF*RT)%M);
+             else ways+=((LT*RT)%M+(LF*RF)%M);
+            };break;
+            case '|':{
+                if(res)
+                    ways+=((LT*RT)%M+(LT*RF)%M+(LF*RT)%M);
+                else ways+=((LF*RF)%M);
+            };break;      
+        }     
+    } 
+    return dp[i][j][res]=(ways%M);
+}
+int evaluateExp(string & exp) {
+    int n=exp.length();
+    vector<vector<vector<ll>>> dp(n,vector<vector<ll>>(n,vector<ll>(2,-1)) );
+    return (int)(solve(exp,0,n-1,1,dp)%M);
+}
