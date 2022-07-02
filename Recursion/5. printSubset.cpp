@@ -7,7 +7,7 @@ void printSubset(string inp,string out)
 {
     if(inp.length()==0)
         {
-            cout<<"val"<<out<<"\n";
+            cout<<"val: "<<out<<"\n";
             return;
         }
     string out2;

@@ -19,6 +19,7 @@ using namespace std;
      
  }
  
+ //find minimum in rotated sorted array
  int findMin(vector<int>& nums) {
         if(nums.size()==1)
             return nums[0];
@@ -29,9 +30,11 @@ using namespace std;
         while(start<=end)
         {
             mid=start+(end-start)/2;
-            prev=(mid-1+N)%N;
+
+            prev=(mid-1+N)%N;//to avoid segmentation fault
             next=(mid+1)%N;
-            if(nums[mid]<nums[prev]&&nums[mid]<nums[next])
+
+            if(nums[mid]<nums[prev] && nums[mid]<nums[next])
                 return minIndex=mid;
             else if(nums[mid]<nums[end])
                 end=mid-1;
