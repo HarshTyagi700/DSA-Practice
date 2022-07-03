@@ -18,6 +18,8 @@ using namespace std;
      
  }
 
+//just try to find the range of the target index using this function and then 
+//apply binary search
 int findPos(int *arr,int key)
 {
     int l=0,h=1;

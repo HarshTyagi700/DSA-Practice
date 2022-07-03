@@ -3,11 +3,14 @@
 
 using namespace std;
 
+
+//TC-O(LogN)
 int singleNonDuplicate(vector<int>& nums) {
         if(nums.size()==1)
             return nums[0];
         int n=nums.size();
         int ans;
+        //0 1 1
         int mid,start=0,end=n-1;
         while(start<=end)
         {
@@ -31,7 +34,7 @@ int singleNonDuplicate(vector<int>& nums) {
         }
         return ans;
     }
-     //using Bitwise XOR operator
+     //using Bitwise XOR operator TC-O(N)
      int singleNonDuplicate(vector<int>& nums) {
         int xorResult=nums[0];
         for(int i=1;i<nums.size();i++)

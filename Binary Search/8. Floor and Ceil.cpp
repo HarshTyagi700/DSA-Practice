@@ -14,7 +14,7 @@ int findFloor(long long int arr[], int N, long long int K) {
         return mid;
         if(arr[mid]<K)
         {
-            ans=arr[mid];
+            ans=arr[mid];//this can be my answer
             index=mid;
             start=mid+1;
         }

@@ -15,9 +15,9 @@ int nearlySortSearch(vector<int> nums,int key)
         mid=start+(end-start)/2;
         if(key==nums[mid])
         return mid;
-        if(start<mid&&nums[mid-1]==key)
+        if(start<mid&&nums[mid-1]==key)//checking for mid-1 idx if it exists
         return mid-1;
-        if(end>mid&&nums[mid+1]==key)
+        if(end>mid&&nums[mid+1]==key)//checking mid+1 idx if it exists
         return mid+1;
         if(key<nums[mid])
             end=mid-2;

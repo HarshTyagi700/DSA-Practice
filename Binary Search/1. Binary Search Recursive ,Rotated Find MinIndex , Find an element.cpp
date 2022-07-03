@@ -45,6 +45,7 @@ using namespace std;
        return minIndex;
  }
  
+ //search in a rotated sorted array
  int searchSorted(vector<int> &nums, int target)
  {
      if(nums.size()==1)
@@ -53,9 +54,9 @@ using namespace std;
                 return 0;
             else return -1;
         }
-     int minIndex=findMin(nums);
-     int res1=binarySearch(nums,minIndex,nums.size()-1,target);
-     int res2=binarySearch(nums,0,minIndex,target);
+     int minIndex=findMin(nums);//finding out the breaking index
+     int res1=binarySearch(nums,minIndex,nums.size()-1,target);//ascending part of the array
+     int res2=binarySearch(nums,0,minIndex,target);//another ascending part of the array
      if(res1==res2)
      return res1;
      else if(res1==-1)
