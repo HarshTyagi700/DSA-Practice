@@ -20,7 +20,8 @@ Approach 1 -> Individually calculating leftMax and rightMax for each index TC ->
 Approach 2 -> prefixMax and suffixMax array TC-> O(3N) SC-> O(2N)
 Appraoch 3 -> 2 pointer appraoch
 */
-
+//approach is move left and right pointer only when i have something greater than one 
+//on the other side
  int trap(vector<int>& height) {
         int leftMax=0,rightMax=0,left=0,right=height.size()-1;
         int totalWater=0;
