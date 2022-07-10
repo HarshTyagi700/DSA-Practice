@@ -28,10 +28,12 @@ int *findTwoElement(int *arr, int n) {
         int* ans=new int[2];
         int i=0;
         while(i<n){
-            if(arr[i]!=arr[arr[i]-1])
+            if(arr[i]!=arr[arr[i]-1])//checking if the elements is at is right place 
                 swap(arr[i],arr[arr[i]-1]);
-            else i++;
+            else i++;//if it is then will move futher
         }
+        //elements which are to be at their correct places are there 
+        //now we will which element is at some other's place
         for(int i=0;i<n;i++){
             if(arr[i]!=i+1)
             {
